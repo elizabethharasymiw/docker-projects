@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+FROM ubuntu:focal
+
+RUN apt-get update -y
+
+RUN DEBIAN_FRONTEND="noninteractive" TZ="America/Chicago" apt-get -y install tzdata \
+    apt-utils debconf locales-all
+
+RUN mkdir -p TestingDir
+
+WORKDIR TestingDir
+
+COPY test.txt  /TestingDir/
+
+#COPY example.bsx  /TestingDir/
+#RUN /TestingDir/example.bsx <<EOF
+#    command1 
+#    command2
+#    ""
+
+EOF
+RUN rm /TestingDir/test.txt
+
+#ENV PATH=/TestingDir/ExampleProgramName:$PATH
+
+CMD ["/bin/bash"]
